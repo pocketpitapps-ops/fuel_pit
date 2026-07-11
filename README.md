@@ -1,4 +1,5 @@
 # fuel_pit
+<<<<<<< HEAD
 
 A new Flutter project.
 
@@ -15,3 +16,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+app for fuel price comparison
+>>>>>>> 72b233560e2d2aa6979e4055fac7d9d20e6e0cca
