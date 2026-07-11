@@ -23,7 +23,10 @@ class _IntroVideoScreenState extends State<IntroVideoScreen> {
             'assets/intro.mp4',
             videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
           )
-          ..initialize().then((_) {
+          ..initialize().then((_) async {
+            // Garante que o vídeo começa no frame 0
+            await _controller.seekTo(Duration.zero);
+            if (!mounted) return;
             setState(() {});
             _controller.play();
           });
