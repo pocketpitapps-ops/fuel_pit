@@ -1,6 +1,7 @@
 // lib/ui/home_shell.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:fuel_pit/update_checker.dart';
 
 import 'bottom_nav_scope.dart';
 import '../../dashboard/presentation/dashboard_page.dart';
@@ -24,6 +25,19 @@ class _HomeShellState extends State<HomeShell> {
     CouponsPage(),
     ProfilePage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+
+      final latest = await UpdateChecker.getLatestVersionIfNewer();
+      if (!mounted || latest == null) return;
+
+      await UpdateChecker.showUpdateDialog(context, latest);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
