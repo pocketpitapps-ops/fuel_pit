@@ -1,0 +1,8 @@
+{
+  "tipos": [
+    { "id": "carro", "label": "Carro" },
+    { "id": "jipe", "label": "Jipe / SUV" },
+    { "id": "carrinha", "label": "Carrinha / monovolume" },
+    { "id": "moto", "label": "Moto" }
+  ]
+}

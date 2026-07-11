@@ -1,0 +1,407 @@
+{
+  "carro": {
+    "Volkswagen": [
+      "Up",
+      "Golf",
+      "Polo",
+      "Passat",
+      "Arteon",
+      "T-Roc",
+      "Tiguan",
+      "Touran",
+      "ID.3",
+      "ID.4",
+      "ID.5"
+    ],
+    "Renault": [
+      "Twingo",
+      "Clio",
+      "Megane",
+      "Megane E-Tech",
+      "Captur",
+      "Kadjar",
+      "Austral",
+      "Arkana"
+    ],
+    "Peugeot": [
+      "108",
+      "208",
+      "2008",
+      "308",
+      "3008",
+      "5008",
+      "508"
+    ],
+    "Toyota": [
+      "Aygo",
+      "Yaris",
+      "Yaris Cross",
+      "Corolla",
+      "Corolla Touring Sports",
+      "C-HR",
+      "Camry",
+      "RAV4",
+      "Prius"
+    ],
+    "BMW": [
+      "1 Series",
+      "2 Series",
+      "3 Series",
+      "4 Series",
+      "5 Series",
+      "X1",
+      "X2",
+      "X3",
+      "i3",
+      "i4",
+      "iX1"
+    ],
+    "Mercedes-Benz": [
+      "A-Class",
+      "B-Class",
+      "C-Class",
+      "CLA",
+      "E-Class",
+      "GLA",
+      "GLB",
+      "GLC",
+      "EQB",
+      "EQC"
+    ],
+    "Audi": [
+      "A1",
+      "A3",
+      "A4",
+      "A5",
+      "Q2",
+      "Q3",
+      "Q4 e-tron",
+      "Q5"
+    ],
+    "Ford": [
+      "Ka+",
+      "Fiesta",
+      "Focus",
+      "Mondeo",
+      "Puma",
+      "Kuga",
+      "Mustang",
+      "Mustang Mach-E"
+    ],
+    "Fiat": [
+      "Punto",
+      "Tipo",
+      "500",
+      "500X",
+      "500e",
+      "Panda"
+    ],
+    "Opel": [
+      "Adam",
+      "Karl",
+      "Corsa",
+      "Astra",
+      "Insignia",
+      "Mokka",
+      "Crossland",
+      "Zafira"
+    ],
+    "Skoda": [
+      "Citigo",
+      "Fabia",
+      "Scala",
+      "Octavia",
+      "Superb",
+      "Kamiq",
+      "Karoq",
+      "Kodiaq",
+      "Enyaq"
+    ],
+    "Dacia": [
+      "Spring",
+      "Sandero",
+      "Logan",
+      "Duster",
+      "Jogger"
+    ],
+    "Hyundai": [
+      "i10",
+      "i20",
+      "i30",
+      "Tucson",
+      "Kona",
+      "Bayon",
+      "Ioniq",
+      "Ioniq 5",
+      "Ioniq 6"
+    ],
+    "Kia": [
+      "Picanto",
+      "Rio",
+      "Ceed",
+      "Proceed",
+      "XCeed",
+      "Sportage",
+      "Stonic",
+      "Niro",
+      "EV6"
+    ],
+    "Volvo": [
+      "V40",
+      "V60",
+      "V90",
+      "XC40",
+      "XC60",
+      "XC90",
+      "C40"
+    ],
+    "Citroën": [
+      "C1",
+      "C3",
+      "C3 Aircross",
+      "C4",
+      "C4 X",
+      "C5 Aircross"
+    ],
+    "Seat": [
+      "Ibiza",
+      "Leon",
+      "Arona",
+      "Ateca",
+      "Tarraco"
+    ],
+    "Mazda": [
+      "Mazda2",
+      "Mazda3",
+      "Mazda6",
+      "CX-3",
+      "CX-30",
+      "CX-5",
+      "MX-30"
+    ],
+    "Nissan": [
+      "Micra",
+      "Leaf",
+      "Juke",
+      "Qashqai",
+      "X-Trail",
+      "Ariya"
+    ],
+    "Honda": [
+      "Jazz",
+      "Civic",
+      "Accord",
+      "HR-V",
+      "CR-V",
+      "e:Ny1"
+    ],
+    "Tesla": [
+      "Model 3",
+      "Model Y",
+      "Model S",
+      "Model X"
+    ],
+    "Mitsubishi": [
+      "Colt",
+      "Mirage",
+      "Mirage G4",
+      "Attrage",
+      "Lancer",
+      "Lancer Evolution",
+      "ASX",
+      "Eclipse",
+      "Eclipse Cross",
+      "Galant",
+      "Outlander",
+      "Outlander Sport",
+      "Xpander",
+      "Xpander Cross"
+    ]
+  },
+  "moto": {
+    "Yamaha": [
+      "MT-07",
+      "MT-09",
+      "Tracer 7",
+      "Tracer 9",
+      "XMAX 300",
+      "Ténéré 700",
+      "NMAX 125"
+    ],
+    "Honda": [
+      "CB125F",
+      "CB500F",
+      "CB500X",
+      "CBR650R",
+      "NC750X",
+      "Africa Twin",
+      "PCX 125",
+      "Forza 350"
+    ],
+    "Suzuki": [
+      "SV650",
+      "V-Strom 650",
+      "V-Strom 1050",
+      "GSX-S750",
+      "GSX-S1000"
+    ],
+    "Kawasaki": [
+      "Z400",
+      "Z650",
+      "Z900",
+      "Ninja 400",
+      "Ninja 650",
+      "Versys 650"
+    ],
+    "BMW": [
+      "G310R",
+      "F900R",
+      "F850GS",
+      "R1250GS",
+      "R1250R",
+      "R1250RT"
+    ],
+    "KTM": [
+      "Duke 125",
+      "Duke 390",
+      "390 Adventure",
+      "790 Duke",
+      "1290 Super Adventure"
+    ],
+    "Ducati": [
+      "Scrambler Icon",
+      "Scrambler Full Throttle",
+      "Monster",
+      "Multistrada V2",
+      "Multistrada V4",
+      "Panigale V2"
+    ],
+    "Triumph": [
+      "Street Triple",
+      "Speed Triple",
+      "Tiger 900",
+      "Tiger 1200",
+      "Bonneville T100",
+      "Bonneville T120"
+    ],
+    "Piaggio": [
+      "Liberty 125",
+      "Medley 125",
+      "Beverly 300",
+      "MP3 300"
+    ]
+  },
+  "carrinha": {
+    "Volkswagen": [
+      "Transporter",
+      "Caddy",
+      "Caravelle",
+      "Multivan",
+      "Crafter"
+    ],
+    "Mercedes-Benz": [
+      "Citan",
+      "Vito",
+      "V-Class",
+      "Sprinter"
+    ],
+    "Renault": [
+      "Kangoo",
+      "Trafic",
+      "Master",
+      "Express"
+    ],
+    "Peugeot": [
+      "Rifter",
+      "Partner Tepee",
+      "Expert",
+      "Traveller"
+    ],
+    "Citroën": [
+      "Berlingo",
+      "Spacetourer",
+      "Jumpy",
+      "Relay"
+    ],
+    "Fiat": [
+      "Doblò",
+      "Scudo",
+      "Talento",
+      "Ducato"
+    ],
+    "Opel": [
+      "Combo Life",
+      "Vivaro",
+      "Movano"
+    ],
+    "Ford": [
+      "Transit Connect",
+      "Transit Custom",
+      "Tourneo Connect",
+      "Tourneo Custom",
+      "Transit"
+    ],
+    "Toyota": [
+      "Proace City Verso",
+      "Proace Verso",
+      "Hiace"
+    ]
+  },
+  "jipe": {
+    "Jeep": [
+      "Renegade",
+      "Compass",
+      "Cherokee",
+      "Wrangler",
+      "Grand Cherokee"
+    ],
+    "Land Rover": [
+      "Defender",
+      "Discovery Sport",
+      "Discovery",
+      "Range Rover Evoque",
+      "Range Rover Velar",
+      "Range Rover Sport",
+      "Range Rover"
+    ],
+    "Toyota": [
+      "RAV4",
+      "RAV4 Adventure",
+      "Land Cruiser",
+      "Highlander",
+      "Hilux"
+    ],
+    "Mitsubishi": [
+      "ASX",
+      "Outlander",
+      "Pajero",
+      "Pajero Sport",
+      "Montero Sport"
+    ],
+    "Nissan": [
+      "Juke",
+      "Qashqai",
+      "Qashqai Tekna",
+      "X-Trail",
+      "Pathfinder"
+    ],
+    "Suzuki": [
+      "Ignis",
+      "Jimny",
+      "Vitara",
+      "S-Cross"
+    ],
+    "Hyundai": [
+      "Kona",
+      "Tucson",
+      "Tucson N Line",
+      "Santa Fe"
+    ],
+    "Kia": [
+      "Stonic",
+      "Sportage",
+      "Sportage GT-Line",
+      "Sorento"
+    ]
+  }
+}
