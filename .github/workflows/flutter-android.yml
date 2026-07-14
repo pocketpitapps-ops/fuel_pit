@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*.*.*'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,8 +29,11 @@ jobs:
         env:
           GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Xmx4g"
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: fuel-pit-apk
-          path: build/app/outputs/apk/release/app-release.apk
+          tag_name: ${{ github.ref_name }}
+          name: "Fuel Pit ${{ github.ref_name }}"
+          body: "Build automático do Fuel Pit ${{ github.ref_name }}"
+          files: build/app/outputs/apk/release/app-release.apk
+          generate_release_notes: true
