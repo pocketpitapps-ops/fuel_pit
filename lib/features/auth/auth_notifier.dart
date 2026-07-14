@@ -183,14 +183,12 @@ class AuthNotifier extends ChangeNotifier {
           redirectTo: Uri.base.origin,
         );
       } else {
-        const iosClientId =
-            '386848816031-m3g6e1t5li9a6fi48kftki48ml1lfjk2.apps.googleusercontent.com';
         const webClientId =
             '386848816031-ejn7o26g26fs80qs58mpnei0fv7134sc.apps.googleusercontent.com';
 
         await GoogleSignIn.instance.initialize(
-          clientId: iosClientId, // usado em iOS
-          serverClientId: webClientId, // Web client ID (o mesmo do Supabase)
+          clientId: webClientId,
+          serverClientId: webClientId,
         );
 
         final googleSignIn = GoogleSignIn.instance;
