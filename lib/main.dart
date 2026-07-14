@@ -1,10 +1,11 @@
-// lib\main.dart
+// lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'features/intro/intro_video_screen.dart';
+import 'features/intro/splash_intro_page.dart';
+
 import 'features/auth/auth_callback_page.dart';
 import 'features/auth/auth_notifier.dart';
 import 'features/auth/auth_page.dart';
@@ -16,7 +17,6 @@ import 'features/profile/data/user_profile_repository.dart';
 import 'features/profile/domain/user_profile.dart';
 import 'features/onboarding/presentation/onboarding_page.dart';
 
-// importa o tema novo
 import 'theme/fuel_pit_theme.dart';
 
 final themeModeNotifier = ValueNotifier<ThemeMode>(ThemeMode.light);
@@ -50,16 +50,15 @@ class FuelPitApp extends StatelessWidget {
           return MaterialApp(
             title: 'Fuel Pit',
             debugShowCheckedModeBanner: false,
-            // temas vindos do ficheiro fuel_pit_theme.dart
             theme: fuelPitLightTheme,
             darkTheme: fuelPitDarkTheme,
             themeMode: mode,
-            home: const IntroVideoScreen(),
+            // usa a intro animada como primeira página Flutter
+            home: const SplashIntroPage(),
             routes: {'/auth-callback': (_) => const AuthCallbackPage()},
             onGenerateRoute: (settings) {
               final uri = Uri.parse(settings.name ?? '/');
 
-              // Ex: http://localhost:3000/?code=...
               if (uri.path == '/' && uri.queryParameters.containsKey('code')) {
                 return MaterialPageRoute(
                   builder: (_) => const AuthCallbackPage(),
@@ -76,6 +75,7 @@ class FuelPitApp extends StatelessWidget {
   }
 }
 
+// Mantém o resto (AuthOrHomeRoot, HomeGate, etc.) igual ao que já tens:
 class AuthOrHomeRoot extends StatefulWidget {
   const AuthOrHomeRoot({super.key});
 
@@ -96,15 +96,10 @@ class AuthOrHomeRootState extends State<AuthOrHomeRoot> {
   Widget build(BuildContext context) {
     final authState = context.watch<AuthNotifier>().state;
 
-    debugPrint(
-      'AuthOrHomeRoot.build: status=${authState.status}, isLoading=${authState.isLoading}',
-    );
-
     if (authState.status == AuthStatus.unknown || authState.isLoading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    // 1) Utilizador autenticado → HomeGate (verifica perfil)
     if (authState.status == AuthStatus.authenticated) {
       return BottomNavScope(
         controller: _bottomNavController,
@@ -112,7 +107,6 @@ class AuthOrHomeRootState extends State<AuthOrHomeRoot> {
       );
     }
 
-    // 2) Convidado → vai direto para HomeShell, sem SupabaseUser/Profile
     if (authState.status == AuthStatus.guest) {
       return BottomNavScope(
         controller: _bottomNavController,
@@ -120,7 +114,6 @@ class AuthOrHomeRootState extends State<AuthOrHomeRoot> {
       );
     }
 
-    // 3) Não autenticado → ecrã de autenticação
     return const AuthPage();
   }
 }
@@ -134,7 +127,6 @@ class HomeGate extends StatelessWidget {
     final user = authState.supabaseUser;
 
     if (user == null) {
-      // fallback de segurança: se por algum motivo não houver user, volta ao Auth
       return const AuthPage();
     }
 
@@ -148,8 +140,6 @@ class HomeGate extends StatelessWidget {
         final profile = snapshot.data;
 
         if (profile == null) {
-          // Primeira vez / registo incompleto
-          // Aqui podes meter um OnboardingPage em vez de AuthPage
           return const OnboardingPage();
         }
 
@@ -157,7 +147,6 @@ class HomeGate extends StatelessWidget {
           return const OnboardingPage();
         }
 
-        // Perfil existente → app “normal”
         return const HomeShell();
       },
     );

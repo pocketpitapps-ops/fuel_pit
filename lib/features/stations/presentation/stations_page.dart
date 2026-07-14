@@ -102,7 +102,9 @@ class _StationsPageState extends State<StationsPage> {
       setState(() {
         _districtsMap = _groupByDistrict(list);
       });
-    } catch (_) {}
+    } catch (_) {
+      // Erro ao carregar municípios — filtro fica vazio
+    }
   }
 
   Map<String, List<String>> _groupByDistrict(List<Municipality> list) {
@@ -185,7 +187,6 @@ class _StationsPageState extends State<StationsPage> {
       final pos = locationResult.position;
       if (pos != null) {
         final city = await _geocodingService.getCityLabelFromPosition(pos);
-        debugPrint('Reverse geocoding city: $city');
         if (mounted) {
           setState(() {
             _currentCityLabel = city;

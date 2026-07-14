@@ -1,6 +1,5 @@
 // lib/features/auth/auth_notifier.dart
-import 'package:flutter/foundation.dart'
-    show kIsWeb, ChangeNotifier, debugPrint;
+import 'package:flutter/foundation.dart' show kIsWeb, ChangeNotifier;
 import 'package:flutter/material.dart' show BuildContext, Navigator;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
@@ -37,8 +36,6 @@ class AuthNotifier extends ChangeNotifier {
       final session = event.session;
       final user = session?.user;
 
-      debugPrint('onAuthStateChange: event=${event.event}, user=${user?.id}');
-
       if (user != null) {
         _state = AuthState(
           status: AuthStatus.authenticated,
@@ -52,7 +49,6 @@ class AuthNotifier extends ChangeNotifier {
       }
 
       notifyListeners();
-      debugPrint('AuthNotifier: new status=${_state.status}');
     });
   }
 
@@ -63,10 +59,6 @@ class AuthNotifier extends ChangeNotifier {
       // 1) Garantir que o perfil existe (pela trigger)
       final existing = await repo.fetchProfileByUserId(user.id);
       if (existing == null) {
-        debugPrint(
-          'AuthNotifier._ensureUserProfile: no profile for user=${user.id}',
-        );
-        // Aqui podes só dar return e tratar isto na UI (onboarding/erro).
         return;
       }
 
@@ -86,24 +78,19 @@ class AuthNotifier extends ChangeNotifier {
       }
 
       // Não tocar em country/currency/notifications aqui, a não ser que queiras mesmo.
-    } catch (e) {
-      debugPrint('AuthNotifier._ensureUserProfile error: $e');
+    } catch (_) {
+      // Falha ao garantir perfil — tratado na UI
     }
   }
 
   Future<void> loginWithEmail(String email, String password) async {
     _state = _state.copyWith(isLoading: true);
     notifyListeners();
-    debugPrint('AuthNotifier.loginWithEmail: start');
 
     try {
       final res = await supabase.auth.signInWithPassword(
         email: email,
         password: password,
-      );
-
-      debugPrint(
-        'AuthNotifier.loginWithEmail: res.session=${res.session}, res.user=${res.user}',
       );
 
       if (res.session == null || res.user == null) {
@@ -112,9 +99,8 @@ class AuthNotifier extends ChangeNotifier {
 
       // sessão válida → garante perfil
       await _ensureUserProfile(res.user!);
-    } catch (e, st) {
+    } catch (e) {
       final message = e.toString();
-      debugPrint('AuthNotifier.loginWithEmail: error=$message\n$st');
       _state = _state.copyWith(isLoading: false);
       notifyListeners();
       throw Exception(_mapAuthErrorMessage(message));
@@ -122,7 +108,6 @@ class AuthNotifier extends ChangeNotifier {
 
     _state = _state.copyWith(isLoading: false);
     notifyListeners();
-    debugPrint('AuthNotifier.loginWithEmail: done');
   }
 
   Future<void> signUpWithEmail({
@@ -179,7 +164,6 @@ class AuthNotifier extends ChangeNotifier {
       // Aqui podes navegar para um ecrã tipo "verifica o teu email"
     } catch (e) {
       final message = e.toString();
-      debugPrint('AuthNotifier.signUpWithEmail: error=$message');
       _state = _state.copyWith(isLoading: false);
       notifyListeners();
       throw Exception(_mapAuthErrorMessage(message));
@@ -191,15 +175,13 @@ class AuthNotifier extends ChangeNotifier {
 
     _state = _state.copyWith(isLoading: true);
     notifyListeners();
-    debugPrint('signInWithGoogle: start (kIsWeb=$kIsWeb)');
 
     try {
       if (kIsWeb) {
-        final res = await supabase.auth.signInWithOAuth(
+        await supabase.auth.signInWithOAuth(
           OAuthProvider.google,
           redirectTo: Uri.base.origin,
         );
-        debugPrint('signInWithGoogle (web): started OAuth flow res=$res');
       } else {
         const iosClientId =
             '386848816031-m3g6e1t5li9a6fi48kftki48ml1lfjk2.apps.googleusercontent.com';
@@ -214,7 +196,6 @@ class AuthNotifier extends ChangeNotifier {
         final googleSignIn = GoogleSignIn.instance;
 
         final googleUser = await googleSignIn.authenticate();
-        debugPrint('signInWithGoogle (mobile): googleUser=$googleUser');
 
         // Pedir scopes (email, profile) para garantir accessToken adequado
         final clientAuth = await googleUser.authorizationClient.authorizeScopes(
@@ -226,10 +207,6 @@ class AuthNotifier extends ChangeNotifier {
         final idToken = googleAuth.idToken;
         final accessToken = clientAuth.accessToken;
 
-        debugPrint(
-          'signInWithGoogle (mobile): idToken=${idToken != null}, accessToken',
-        );
-
         if (idToken == null) {
           throw Exception('Não foi possível obter o token do Google.');
         }
@@ -240,26 +217,19 @@ class AuthNotifier extends ChangeNotifier {
           accessToken: accessToken,
         );
 
-        debugPrint(
-          'signInWithGoogle (mobile): res.user=${res.user?.id}, res.session=${res.session != null}',
-        );
-
         final user = res.user;
         if (user == null) {
           throw Exception('Falha ao autenticar com Google.');
         }
 
         await _ensureUserProfile(user);
-        debugPrint('signInWithGoogle (mobile): profile ensured');
       }
     } catch (e) {
       final message = e.toString();
-      debugPrint('signInWithGoogle: error=$message');
       throw Exception(_mapAuthErrorMessage(message));
     } finally {
       _state = _state.copyWith(isLoading: false);
       notifyListeners();
-      debugPrint('signInWithGoogle: done');
     }
   }
 
@@ -287,7 +257,6 @@ class AuthNotifier extends ChangeNotifier {
   }
 
   void continueAsGuest() {
-    debugPrint('AuthNotifier: continueAsGuest');
     _state = const AuthState(status: AuthStatus.guest);
     notifyListeners();
   }

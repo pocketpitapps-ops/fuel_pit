@@ -152,13 +152,11 @@ class _LoyaltyStepState extends State<LoyaltyStep> {
           );
         }
       }
-    } catch (e, stack) {
-      debugPrint('Loyalty coupon sync error: $e');
-      debugPrint('Stacktrace: $stack');
+    } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Erro ao sincronizar cupões de fidelização: $e'),
+            content: Text('Erro ao sincronizar cupões de fidelização.'),
           ),
         );
       }

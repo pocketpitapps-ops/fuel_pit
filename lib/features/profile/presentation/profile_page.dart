@@ -176,18 +176,16 @@ class _ProfilePageState extends State<ProfilePage> {
         throw Exception('Sem sessão ativa para eliminar conta.');
       }
 
-      final res = await client.functions.invoke(
+      await client.functions.invoke(
         'delete-user',
         headers: {'Authorization': 'Bearer ${session.accessToken}'},
       );
 
-      debugPrint('delete-user response: ${res.data}');
-
       // 3) Logout local (ignora erro de network aqui)
       try {
         await auth.logout();
-      } catch (e) {
-        debugPrint('logout depois de delete falhou (ignorado): $e');
+      } catch (_) {
+        // Ignorado — utilizador já eliminado
       }
 
       if (!mounted) return;

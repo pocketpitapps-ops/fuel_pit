@@ -260,7 +260,6 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     final nav = BottomNavScope.of(context);
     final authState = context.watch<AuthNotifier>().state;
-    debugPrint('DashboardPage build: status=${authState.status}');
     final isGuest = authState.status == AuthStatus.guest;
 
     return Scaffold(
