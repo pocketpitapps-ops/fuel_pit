@@ -1,6 +1,7 @@
 // lib/features/auth/sign_up_page.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'auth_notifier.dart';
 import 'auth_page.dart';
@@ -30,6 +31,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool _termsAccepted = false;
 
   int _passwordStrength = 0; // 0–4
 
@@ -129,6 +131,12 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
     if (auth.state.isLoading) return;
+    if (!_termsAccepted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Aceita os Termos e a Política de Privacidade para continuar.')),
+      );
+      return;
+    }
 
     final username = _usernameController.text.trim();
     final email = _emailController.text.trim();
@@ -426,6 +434,56 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
 
                 const SizedBox(height: 24),
+
+                // Termos e Privacidade
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      value: _termsAccepted,
+                      onChanged: (value) {
+                        setState(() => _termsAccepted = value ?? false);
+                      },
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() => _termsAccepted = !_termsAccepted);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: RichText(
+                            text: TextSpan(
+                              style: textTheme.bodySmall,
+                              children: [
+                                const TextSpan(
+                                  text: 'Li e aceito os ',
+                                ),
+                                TextSpan(
+                                  text: 'Termos de Utilização',
+                                  style: TextStyle(
+                                    color: theme.colorScheme.primary,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                const TextSpan(text: ' e a '),
+                                TextSpan(
+                                  text: 'Política de Privacidade',
+                                  style: TextStyle(
+                                    color: theme.colorScheme.primary,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
                   child: FilledButton(

@@ -1,6 +1,8 @@
 // lib/features/profile/presentation/privacy_security_page.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../legal/privacy_policy_page.dart';
+import '../../legal/terms_of_service_page.dart';
 import '../domain/user_profile.dart';
 import '../data/user_profile_repository.dart';
 import '../../../shared/widgets/app_card.dart';
@@ -102,11 +104,16 @@ class _PrivacySecurityPageState extends State<PrivacySecurityPage> {
     }
   }
 
-  /// Abre links de política/termos (por enquanto apenas mostra SnackBar).
   Future<void> _openLegalLink(String type) async {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Abrir $type (por implementar).')));
+    if (type == 'política de privacidade') {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const PrivacyPolicyPage()),
+      );
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const TermsOfServicePage()),
+      );
+    }
   }
 
   @override
