@@ -230,8 +230,8 @@ class _NewFillUpPageState extends State<NewFillUpPage> {
 
         _loadingVehicles = false;
       });
-    } catch (_) {
-      debugPrint('Failed to load vehicles: $_');
+    } catch (e) {
+      debugPrint('Failed to load vehicles: $e');
       if (!mounted) return;
       setState(() {
         _vehicles = [];

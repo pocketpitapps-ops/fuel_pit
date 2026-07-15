@@ -73,8 +73,8 @@ class _ProfilePageState extends State<ProfilePage> {
         _loadingVehicle = false;
         _loadingAllVehicles = false;
       });
-    } catch (_) {
-      debugPrint('Failed to load vehicles: $_');
+    } catch (e) {
+      debugPrint('Failed to load vehicles: $e');
       if (!mounted) return;
       setState(() {
         _defaultVehicle = null;

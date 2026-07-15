@@ -216,8 +216,8 @@ class _StationsPageState extends State<StationsPage> {
         _loadingVehicle = false;
         _isLoadingStations = false;
       });
-    } catch (_) {
-      debugPrint('Failed to load default vehicle and stations: $_');
+    } catch (e) {
+      debugPrint('Failed to load default vehicle and stations: $e');
       if (!mounted) return;
       setState(() {
         _defaultVehicle = null;

@@ -92,8 +92,8 @@ class _DashboardPageState extends State<DashboardPage> {
         _news = all;
         _isLoadingNews = false;
       });
-    } catch (_) {
-      debugPrint('Failed to load news: $_');
+    } catch (e) {
+      debugPrint('Failed to load news: $e');
       if (!mounted) return;
       setState(() {
         _news = [];

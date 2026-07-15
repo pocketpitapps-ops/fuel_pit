@@ -83,8 +83,8 @@ class _NewCouponSheetState extends State<NewCouponSheet> {
                 : null);
         _isLoadingBrands = false;
       });
-    } catch (_) {
-      debugPrint('Failed to load brands: $_');
+    } catch (e) {
+      debugPrint('Failed to load brands: $e');
       setState(() {
         _isLoadingBrands = false;
       });
