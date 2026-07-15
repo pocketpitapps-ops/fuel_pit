@@ -16,9 +16,9 @@ class SplashIntroPage extends StatefulWidget {
 class _SplashIntroPageState extends State<SplashIntroPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  final AudioPlayer _logoPlayer = AudioPlayer();
-  final AudioPlayer _ppPlayer = AudioPlayer();
-  final AudioPlayer _carPlayer = AudioPlayer();
+  final AudioPlayer _logoPlayer = AudioPlayer(playerMode: PlayerMode.lowLatency);
+  final AudioPlayer _ppPlayer = AudioPlayer(playerMode: PlayerMode.lowLatency);
+  final AudioPlayer _carPlayer = AudioPlayer(playerMode: PlayerMode.lowLatency);
   bool _logoPlayed = false;
   bool _ppPlayed = false;
   bool _carPlayed = false;
