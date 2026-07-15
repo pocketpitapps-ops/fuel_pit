@@ -93,6 +93,7 @@ class _DashboardPageState extends State<DashboardPage> {
         _isLoadingNews = false;
       });
     } catch (_) {
+      debugPrint('Failed to load news: $_');
       if (!mounted) return;
       setState(() {
         _news = [];
@@ -128,6 +129,7 @@ class _DashboardPageState extends State<DashboardPage> {
         );
       }
     } catch (_) {
+      // Silently ignore: URL launch failure — snackbar shown below
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,

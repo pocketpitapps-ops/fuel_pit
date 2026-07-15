@@ -27,6 +27,7 @@ class GeocodingService {
 
       return null;
     } catch (_) {
+      // Silently ignore: geocoding failure is non-critical
       return null;
     }
   }

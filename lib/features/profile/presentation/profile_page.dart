@@ -74,6 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
         _loadingAllVehicles = false;
       });
     } catch (_) {
+      debugPrint('Failed to load vehicles: $_');
       if (!mounted) return;
       setState(() {
         _defaultVehicle = null;
@@ -185,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
       try {
         await auth.logout();
       } catch (_) {
-        // Ignorado — utilizador já eliminado
+        // Silently ignore: user already deleted — logout may fail on stale session
       }
 
       if (!mounted) return;

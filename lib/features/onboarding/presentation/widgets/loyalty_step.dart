@@ -152,7 +152,8 @@ class _LoyaltyStepState extends State<LoyaltyStep> {
           );
         }
       }
-    } catch (_) {
+    } catch (e) {
+      debugPrint('Failed to sync loyalty coupons: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

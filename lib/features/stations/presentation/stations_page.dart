@@ -69,6 +69,7 @@ class _StationsPageState extends State<StationsPage> {
     try {
       return await _profileRepository.getForCurrentUser();
     } catch (_) {
+      // Silently ignore: profile load failure is non-critical for stations view
       return null;
     }
   }
@@ -77,6 +78,7 @@ class _StationsPageState extends State<StationsPage> {
     try {
       return await _loadActiveCoupons();
     } catch (_) {
+      // Silently ignore: coupon load failure is non-critical
       return const <Coupon>[];
     }
   }
@@ -103,7 +105,7 @@ class _StationsPageState extends State<StationsPage> {
         _districtsMap = _groupByDistrict(list);
       });
     } catch (_) {
-      // Erro ao carregar municípios — filtro fica vazio
+      // Silently ignore: municipality load failure — filter stays empty
     }
   }
 
@@ -215,6 +217,7 @@ class _StationsPageState extends State<StationsPage> {
         _isLoadingStations = false;
       });
     } catch (_) {
+      debugPrint('Failed to load default vehicle and stations: $_');
       if (!mounted) return;
       setState(() {
         _defaultVehicle = null;

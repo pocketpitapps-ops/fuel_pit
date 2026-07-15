@@ -231,6 +231,7 @@ class _NewFillUpPageState extends State<NewFillUpPage> {
         _loadingVehicles = false;
       });
     } catch (_) {
+      debugPrint('Failed to load vehicles: $_');
       if (!mounted) return;
       setState(() {
         _vehicles = [];
@@ -251,6 +252,7 @@ class _NewFillUpPageState extends State<NewFillUpPage> {
       }
       return baseCoupons;
     } catch (_) {
+      // Silently ignore: coupon load failure is non-critical
       return [];
     }
   }

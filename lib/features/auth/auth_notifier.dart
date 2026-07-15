@@ -79,7 +79,7 @@ class AuthNotifier extends ChangeNotifier {
 
       // Não tocar em country/currency/notifications aqui, a não ser que queiras mesmo.
     } catch (_) {
-      // Falha ao garantir perfil — tratado na UI
+      // Silently ignore: profile guarantee failure — handled in UI
     }
   }
 
@@ -276,7 +276,7 @@ class AuthNotifier extends ChangeNotifier {
         // disconnect revoga a autorização e força novo consentimento
         await googleSignIn.disconnect();
       } catch (_) {
-        // alguns devices lançam erro se já estiver desconectado, ignora
+        // Silently ignore: some devices throw if already disconnected
       }
     } finally {
       // 3) Atualizar estado local

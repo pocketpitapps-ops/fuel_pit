@@ -2,7 +2,7 @@ name: fuel_pit
 description: "App Fuel Pit - A fuel price comparison app"
 publish_to: 'none'
 
-version: 0.2.2+5
+version: 1.0.0+1
 
 environment:
   sdk: ^3.12.0

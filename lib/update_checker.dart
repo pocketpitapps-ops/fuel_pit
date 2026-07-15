@@ -47,6 +47,7 @@ class UpdateChecker {
 
       return null;
     } catch (_) {
+      // Silently ignore: version check is non-critical
       return null;
     }
   }
