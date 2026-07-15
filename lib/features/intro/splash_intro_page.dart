@@ -22,6 +22,11 @@ class _SplashIntroPageState extends State<SplashIntroPage>
   bool _logoPlayed = false;
   bool _ppPlayed = false;
   bool _carPlayed = false;
+  bool _logoDone = false;
+  bool _ppDone = false;
+  bool _carDone = false;
+  bool _animDone = false;
+  bool _navigated = false;
 
   // Logo: fade + scale
   late Animation<double> _logoOpacity;
@@ -126,33 +131,59 @@ class _SplashIntroPageState extends State<SplashIntroPage>
       final t = _controller.value;
       if (!_logoPlayed && t >= splashAudioLogoTrigger) {
         _logoPlayed = true;
-        _logoPlayer.play(AssetSource('audio/intro_logo.mp3'), volume: 0.8);
+        _logoPlayer.play(AssetSource('audio/intro_logo.mp3'), volume: 1.0);
       }
       if (!_ppPlayed && t >= splashAudioPpTrigger) {
         _ppPlayed = true;
-        _ppPlayer.play(AssetSource('audio/intro_pp.mp3'), volume: 0.8);
+        _ppPlayer.play(AssetSource('audio/intro_pp.mp3'), volume: 1.0);
       }
       if (!_carPlayed && t >= splashAudioCarTrigger) {
         _carPlayed = true;
-        _carPlayer.play(AssetSource('audio/intro_car.mp3'), volume: 0.8);
+        _carPlayer.play(AssetSource('audio/intro_car.mp3'), volume: 1.0);
       }
+    });
+
+    _logoPlayer.onPlayerComplete.listen((_) {
+      _logoDone = true;
+      _tryNavigate();
+    });
+    _ppPlayer.onPlayerComplete.listen((_) {
+      _ppDone = true;
+      _tryNavigate();
+    });
+    _carPlayer.onPlayerComplete.listen((_) {
+      _carDone = true;
+      _tryNavigate();
     });
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(splashPostDelayDuration, () {
-          if (!mounted) return;
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const AuthOrHomeRoot()),
-          );
+          _animDone = true;
+          _tryNavigate();
         });
       }
     });
   }
 
+  void _tryNavigate() {
+    if (_navigated || !mounted) return;
+    if (!_animDone) return;
+    if (!_logoDone && _logoPlayed) return;
+    if (!_ppDone && _ppPlayed) return;
+    if (!_carDone && _carPlayed) return;
+    _navigated = true;
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => const AuthOrHomeRoot()),
+    );
+  }
+
   @override
   void dispose() {
     _controller.dispose();
+    _logoPlayer.dispose();
+    _ppPlayer.dispose();
+    _carPlayer.dispose();
     super.dispose();
   }
 
