@@ -16,9 +16,9 @@ class SplashIntroPage extends StatefulWidget {
 class _SplashIntroPageState extends State<SplashIntroPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  final AudioPlayer _logoPlayer = AudioPlayer(playerMode: PlayerMode.lowLatency);
-  final AudioPlayer _ppPlayer = AudioPlayer(playerMode: PlayerMode.lowLatency);
-  final AudioPlayer _carPlayer = AudioPlayer(playerMode: PlayerMode.lowLatency);
+  final AudioPlayer _logoPlayer = AudioPlayer();
+  final AudioPlayer _ppPlayer = AudioPlayer();
+  final AudioPlayer _carPlayer = AudioPlayer();
   bool _logoPlayed = false;
   bool _ppPlayed = false;
   bool _carPlayed = false;
@@ -48,6 +48,10 @@ class _SplashIntroPageState extends State<SplashIntroPage>
       vsync: this,
       duration: splashTimelineDuration,
     );
+
+    _logoPlayer.setPlayerMode(PlayerMode.lowLatency);
+    _ppPlayer.setPlayerMode(PlayerMode.lowLatency);
+    _carPlayer.setPlayerMode(PlayerMode.lowLatency);
 
     // ── Logo: 0.0→0.25 ──
     _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
