@@ -44,3 +44,8 @@ const double splashCarBottom = 200.0;
 
 const Color splashBackgroundColor = Color(0xFF0F172A);
 const Color splashLogoBlue = Color(0xFF38BDF8);
+
+// ── Áudio: triggers (quando tocar cada som) ──
+const double splashAudioLogoTrigger = 0.0;
+const double splashAudioPpTrigger = 0.25;
+const double splashAudioCarTrigger = 0.70;

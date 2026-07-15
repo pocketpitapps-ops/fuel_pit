@@ -2,7 +2,7 @@ name: fuel_pit
 description: "App Fuel Pit - A fuel price comparison app"
 publish_to: 'none'
 
-version: 0.2.1+4
+version: 0.2.2+5
 
 environment:
   sdk: ^3.12.0
@@ -23,6 +23,7 @@ dependencies:
   package_info_plus: ^10.2.0
   version: ^3.0.2
   google_fonts: ^6.0.0
+  audioplayers: ^6.2.0
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +45,9 @@ flutter:
     - assets/images/logo_pocket_pit_original.png
     - assets/images/letras_pocket_pit_original.png
     - assets/images/car.png
+    - assets/audio/intro_logo.mp3
+    - assets/audio/intro_pp.mp3
+    - assets/audio/intro_car.mp3
     - assets/images/fuel_news_placeholder.png
     - assets/vehicles/brands_models.json
     - assets/vehicles/vehicle_types.json

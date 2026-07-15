@@ -1,5 +1,6 @@
 // lib/features/intro/splash_intro_page.dart
 import 'dart:math' as math;
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fuel_pit/main.dart';
@@ -15,6 +16,12 @@ class SplashIntroPage extends StatefulWidget {
 class _SplashIntroPageState extends State<SplashIntroPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  final AudioPlayer _logoPlayer = AudioPlayer();
+  final AudioPlayer _ppPlayer = AudioPlayer();
+  final AudioPlayer _carPlayer = AudioPlayer();
+  bool _logoPlayed = false;
+  bool _ppPlayed = false;
+  bool _carPlayed = false;
 
   // Logo: fade + scale
   late Animation<double> _logoOpacity;
@@ -115,6 +122,22 @@ class _SplashIntroPageState extends State<SplashIntroPage>
 
     _controller.forward();
 
+    _controller.addListener(() {
+      final t = _controller.value;
+      if (!_logoPlayed && t >= splashAudioLogoTrigger) {
+        _logoPlayed = true;
+        _logoPlayer.play(AssetSource('audio/intro_logo.mp3'), volume: 0.8);
+      }
+      if (!_ppPlayed && t >= splashAudioPpTrigger) {
+        _ppPlayed = true;
+        _ppPlayer.play(AssetSource('audio/intro_pp.mp3'), volume: 0.8);
+      }
+      if (!_carPlayed && t >= splashAudioCarTrigger) {
+        _carPlayed = true;
+        _carPlayer.play(AssetSource('audio/intro_car.mp3'), volume: 0.8);
+      }
+    });
+
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(splashPostDelayDuration, () {
@@ -130,6 +153,9 @@ class _SplashIntroPageState extends State<SplashIntroPage>
   @override
   void dispose() {
     _controller.dispose();
+    _logoPlayer.dispose();
+    _ppPlayer.dispose();
+    _carPlayer.dispose();
     super.dispose();
   }
 
