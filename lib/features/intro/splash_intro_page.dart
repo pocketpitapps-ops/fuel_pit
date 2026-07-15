@@ -153,9 +153,6 @@ class _SplashIntroPageState extends State<SplashIntroPage>
   @override
   void dispose() {
     _controller.dispose();
-    _logoPlayer.dispose();
-    _ppPlayer.dispose();
-    _carPlayer.dispose();
     super.dispose();
   }
 
