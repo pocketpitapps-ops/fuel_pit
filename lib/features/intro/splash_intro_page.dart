@@ -45,10 +45,6 @@ class _SplashIntroPageState extends State<SplashIntroPage>
       duration: splashTimelineDuration,
     );
 
-    _logoPlayer.setAudioSource(AudioSource.asset('assets/audio/intro_logo.mp3'));
-    _ppPlayer.setAudioSource(AudioSource.asset('assets/audio/intro_pp.mp3'));
-    _carPlayer.setAudioSource(AudioSource.asset('assets/audio/intro_car.mp3'));
-
     // ── Logo: 0.0→0.25 ──
     _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
@@ -131,15 +127,21 @@ class _SplashIntroPageState extends State<SplashIntroPage>
       final t = _controller.value;
       if (!_logoPlayed && t >= splashAudioLogoTrigger) {
         _logoPlayed = true;
-        _logoPlayer.play();
+        _logoPlayer
+            .setAudioSource(AudioSource.asset('assets/audio/intro_logo.mp3'))
+            .then((_) => _logoPlayer.play());
       }
       if (!_ppPlayed && t >= splashAudioPpTrigger) {
         _ppPlayed = true;
-        _ppPlayer.play();
+        _ppPlayer
+            .setAudioSource(AudioSource.asset('assets/audio/intro_pp.mp3'))
+            .then((_) => _ppPlayer.play());
       }
       if (!_carPlayed && t >= splashAudioCarTrigger) {
         _carPlayed = true;
-        _carPlayer.play();
+        _carPlayer
+            .setAudioSource(AudioSource.asset('assets/audio/intro_car.mp3'))
+            .then((_) => _carPlayer.play());
       }
     });
 
