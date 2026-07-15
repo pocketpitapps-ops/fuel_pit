@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 // Duração total da timeline (5.5s)
 const Duration splashTimelineDuration = Duration(milliseconds: 5500);
-// Espera após animação antes de navegar
-const Duration splashPostDelayDuration = Duration(seconds: 2);
+// Espera após animação antes de navegar (tempo para todos os sons terminarem)
+const Duration splashAudioPostDelay = Duration(seconds: 5);
 
 // ── Intervals da timeline (0–1 dentro do controller) ──
 

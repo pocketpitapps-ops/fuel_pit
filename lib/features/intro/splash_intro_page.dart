@@ -22,10 +22,6 @@ class _SplashIntroPageState extends State<SplashIntroPage>
   bool _logoPlayed = false;
   bool _ppPlayed = false;
   bool _carPlayed = false;
-  bool _logoDone = false;
-  bool _ppDone = false;
-  bool _carDone = false;
-  bool _animDone = false;
   bool _navigated = false;
 
   // Logo: fade + scale
@@ -48,10 +44,6 @@ class _SplashIntroPageState extends State<SplashIntroPage>
       vsync: this,
       duration: splashTimelineDuration,
     );
-
-    _logoPlayer.setPlayerMode(PlayerMode.lowLatency);
-    _ppPlayer.setPlayerMode(PlayerMode.lowLatency);
-    _carPlayer.setPlayerMode(PlayerMode.lowLatency);
 
     // ── Logo: 0.0→0.25 ──
     _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -147,47 +139,22 @@ class _SplashIntroPageState extends State<SplashIntroPage>
       }
     });
 
-    _logoPlayer.onPlayerComplete.listen((_) {
-      _logoDone = true;
-      _tryNavigate();
-    });
-    _ppPlayer.onPlayerComplete.listen((_) {
-      _ppDone = true;
-      _tryNavigate();
-    });
-    _carPlayer.onPlayerComplete.listen((_) {
-      _carDone = true;
-      _tryNavigate();
-    });
-
     _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        Future.delayed(splashPostDelayDuration, () {
-          _animDone = true;
-          _tryNavigate();
+      if (status == AnimationStatus.completed && !_navigated) {
+        Future.delayed(splashAudioPostDelay, () {
+          if (!mounted || _navigated) return;
+          _navigated = true;
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const AuthOrHomeRoot()),
+          );
         });
       }
     });
   }
 
-  void _tryNavigate() {
-    if (_navigated || !mounted) return;
-    if (!_animDone) return;
-    if (!_logoDone && _logoPlayed) return;
-    if (!_ppDone && _ppPlayed) return;
-    if (!_carDone && _carPlayed) return;
-    _navigated = true;
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const AuthOrHomeRoot()),
-    );
-  }
-
   @override
   void dispose() {
     _controller.dispose();
-    _logoPlayer.dispose();
-    _ppPlayer.dispose();
-    _carPlayer.dispose();
     super.dispose();
   }
 
