@@ -17,7 +17,11 @@ class _SplashIntroPageState extends State<SplashIntroPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final AudioPlayer _logoPlayer = AudioPlayer();
+  final AudioPlayer _ppPlayer = AudioPlayer();
+  final AudioPlayer _carPlayer = AudioPlayer();
   bool _logoPlayed = false;
+  bool _ppPlayed = false;
+  bool _carPlayed = false;
   bool _navigated = false;
 
   // Logo: fade + scale
@@ -42,6 +46,11 @@ class _SplashIntroPageState extends State<SplashIntroPage>
     );
 
     _logoPlayer.setPlayerMode(PlayerMode.lowLatency);
+    _ppPlayer.setPlayerMode(PlayerMode.lowLatency);
+    _carPlayer.setPlayerMode(PlayerMode.lowLatency);
+
+    _logoPlayer.play(AssetSource('audio/intro_logo.mp3'), volume: 1.0);
+    _logoPlayed = true;
 
     // ── Logo: 0.0→0.25 ──
     _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -123,9 +132,13 @@ class _SplashIntroPageState extends State<SplashIntroPage>
 
     _controller.addListener(() {
       final t = _controller.value;
-      if (!_logoPlayed && t >= splashAudioLogoTrigger) {
-        _logoPlayed = true;
-        _logoPlayer.play(AssetSource('audio/intro_logo.mp3'), volume: 1.0);
+      if (!_ppPlayed && t >= splashAudioPpTrigger) {
+        _ppPlayed = true;
+        _ppPlayer.play(AssetSource('audio/intro_pp.mp3'), volume: 1.0);
+      }
+      if (!_carPlayed && t >= splashAudioCarTrigger) {
+        _carPlayed = true;
+        _carPlayer.play(AssetSource('audio/intro_car.mp3'), volume: 1.0);
       }
     });
 
@@ -146,6 +159,8 @@ class _SplashIntroPageState extends State<SplashIntroPage>
   void dispose() {
     _controller.dispose();
     _logoPlayer.dispose();
+    _ppPlayer.dispose();
+    _carPlayer.dispose();
     super.dispose();
   }
 
