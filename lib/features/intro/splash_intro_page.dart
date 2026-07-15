@@ -1,6 +1,6 @@
 // lib/features/intro/splash_intro_page.dart
 import 'dart:math' as math;
-import 'package:just_audio/just_audio.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fuel_pit/main.dart';
@@ -44,6 +44,10 @@ class _SplashIntroPageState extends State<SplashIntroPage>
       vsync: this,
       duration: splashTimelineDuration,
     );
+
+    _logoPlayer.setPlayerMode(PlayerMode.lowLatency);
+    _ppPlayer.setPlayerMode(PlayerMode.lowLatency);
+    _carPlayer.setPlayerMode(PlayerMode.lowLatency);
 
     // ── Logo: 0.0→0.25 ──
     _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -127,21 +131,15 @@ class _SplashIntroPageState extends State<SplashIntroPage>
       final t = _controller.value;
       if (!_logoPlayed && t >= splashAudioLogoTrigger) {
         _logoPlayed = true;
-        _logoPlayer
-            .setAudioSource(AudioSource.asset('assets/audio/intro_logo.mp3'))
-            .then((_) => _logoPlayer.play());
+        _logoPlayer.play(AssetSource('audio/intro_logo.mp3'), volume: 1.0);
       }
       if (!_ppPlayed && t >= splashAudioPpTrigger) {
         _ppPlayed = true;
-        _ppPlayer
-            .setAudioSource(AudioSource.asset('assets/audio/intro_pp.mp3'))
-            .then((_) => _ppPlayer.play());
+        _ppPlayer.play(AssetSource('audio/intro_pp.mp3'), volume: 1.0);
       }
       if (!_carPlayed && t >= splashAudioCarTrigger) {
         _carPlayed = true;
-        _carPlayer
-            .setAudioSource(AudioSource.asset('assets/audio/intro_car.mp3'))
-            .then((_) => _carPlayer.play());
+        _carPlayer.play(AssetSource('audio/intro_car.mp3'), volume: 1.0);
       }
     });
 
