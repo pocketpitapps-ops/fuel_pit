@@ -42,12 +42,10 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/logo_pocket_pit_original.png
-    - assets/images/letras_pocket_pit_original.png
-    - assets/images/car.png
+    - assets/images/fuel_pit_logo.png
+    - assets/images/fuel_pit_logo_center.png
+    - assets/images/fuel_pit_logo_main.png
     - assets/audio/intro_logo.mp3
-    - assets/audio/intro_pp.mp3
-    - assets/audio/intro_car.mp3
     - assets/images/fuel_news_placeholder.png
     - assets/vehicles/brands_models.json
     - assets/vehicles/vehicle_types.json
